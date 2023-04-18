@@ -1,5 +1,6 @@
 package com.xworkz.vinayhp.resources;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/")
 @Slf4j
-@EnableWebMvc
 public class CMSignUpResources {
 
 	@Autowired
@@ -25,15 +25,17 @@ public class CMSignUpResources {
 		log.info("Created :" + this.getClass());
 	}
 
+
+
 	@GetMapping(value = "/userId/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String checkUser(@PathVariable String userId) {
-		log.info("checkUser(String userId) " +userId);
+		log.info("checkUser(String userId) " + userId);
 		Long countByUserId = this.service.countByUserId(userId);
-		log.error(""+countByUserId);
-		if(countByUserId==0) {
+		log.error("" + countByUserId);
+		if (countByUserId == 0) {
 			log.info("Not found similar userId in db");
 			return "";
-		}else {
+		} else {
 			log.error("Found similar userId in db, try another..");
 			return "User Id is exist, try another..";
 		}
@@ -41,13 +43,13 @@ public class CMSignUpResources {
 
 	@GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String checkEmail(@PathVariable String email) {
-		log.info("checkEmail(String email) " +email);
+		log.info("checkEmail(String email) " + email);
 		Long countByEmail = this.service.countByEmail(email);
-		log.error(""+countByEmail);
-		if(countByEmail==0) {
+		log.error("" + countByEmail);
+		if (countByEmail == 0) {
 			log.info("Not found similar email in db");
 			return "";
-		}else {
+		} else {
 			log.error("Found similar email in db, try another..");
 			return "Email is exist, try another..";
 		}
@@ -55,13 +57,13 @@ public class CMSignUpResources {
 
 	@GetMapping(value = "/mobile/{mobile}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String checkMobile(@PathVariable Long mobile) {
-		log.info("checkMobile(String mobile) " +mobile);
+		log.info("checkMobile(String mobile) " + mobile);
 		Long countByMobile = this.service.countByMobile(mobile);
-		log.error(""+countByMobile);
-		if(countByMobile==0) {
+		log.error("" + countByMobile);
+		if (countByMobile == 0) {
 			log.info("Not found similar mobile in db");
 			return "";
-		}else {
+		} else {
 			log.error("Found similar mobile in db, try another..");
 			return "Mobile is exist, try another..";
 		}

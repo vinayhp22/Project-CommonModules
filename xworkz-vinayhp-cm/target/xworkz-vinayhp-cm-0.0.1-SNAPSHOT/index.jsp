@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,31 +16,96 @@
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 <title>X-workz || Home</title>
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
 
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+header img {
+	height: 50px;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+}
+
+nav li {
+	margin-left: 20px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+main {
+	height: 500px;
+	padding: 50px;
+}
+
+nav a:hover {
+	color: #ffc107;
+	background-color: #555;
+	border-radius: 5px;
+}
+
+.active {
+	background-color: #4caf50;
+}
+
+footer {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+</style>
 </head>
 <body>
 	<header>
-		<nav style="background-color: black;" class="row">
-			<div class="container col">
-				<a href="index.jsp"> <img
-					src="https://tse4.mm.bing.net/th?id=OIP.sKD6cb_jUksj6usKnPC5awHaDt&pid=Api&P=0"
-					width="400" height="100" />
-				</a>
-			</div>
-			<div class="col p-3 my-3 bg-primary">
-				<a href="register" style="color: white; font-size: x-large;">
-					Register</a>
-			</div>
-			<div class="col p-3 my-3 bg-primary">
-				<a href="signIn" style="color: white; font-size: x-large;"> Sign In</a>
-			</div>
+
+		<img alt="Xworkz Logo"
+			src='/resources/static/images/xworkz_logo.png' />
+		<nav>
+			<ul>
+				<li class="active"><a href="index.jsp">Home</a></li>
+				<li><a href="register">Register</a></li>
+				<li><a href="signIn">SignIn</a></li>
+				<li><a href="AboutUs.jsp">About Us</a></li>
+				<li><a href="#">Services</a></li>
+				<li><a href="ContactUs.jsp">Contact Us</a></li>
+			</ul>
 		</nav>
 	</header>
 
-	<h1>Common Modules</h1>
-	<h2>1. Sign up</h2>
+	<main>
+		<h1 style="color: green;" align="center">${success}${signUpSuccess}</h1>
+		<h3 style="color: orange;" align="center">${signUpEmailConfirmation}</h3>
+		<h1>Xworkz ODC</h1>
+		<p>Welcome to Xworkz ODC, your trusted partner for all your
+			software development needs. Our team of experienced developers is
+			dedicated to delivering high-quality, scalable solutions that meet
+			your unique business requirements.</p>
+	</main>
 
-	<footer> Developed by: VinayHp </footer>
+	<footer>
+		<p>&copy; 2023 Xworkz ODC. All rights reserved.</p>
+		<p>Developed by: VinayHp</p>
+	</footer>
+
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -53,5 +119,6 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
+
 </body>
 </html>

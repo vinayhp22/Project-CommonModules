@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.xworkz.vinayhp.service.CMSignInService;
 import com.xworkz.vinayhp.service.CMSignUpService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,26 +17,43 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/")
 @Slf4j
-@EnableWebMvc
 public class CMSignInResources {
 
 	@Autowired
-	private CMSignUpService service;
+	private CMSignUpService signUpService;
+	
+	@Autowired
+	private CMSignInService signInService;
 
 	public CMSignInResources() {
 		log.info("Created :" + this.getClass());
 	}
 
-	@PostMapping(value = "/userId/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/signinuserid/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public String checkUser(@PathVariable String userId) {
 		log.info("checkUser(String userId) " +userId);
-		Long countByUserId = this.service.countByUserId(userId);
+		Long countByUserId = this.signUpService.countByUserId(userId);
 		log.error(""+countByUserId);
 		if(countByUserId==0) {
 			log.error("Not found similar userId in db, try another..");
 			return "User Id is not exist, try another..";
 		}else {
 			log.info("Found similar userId in db");
+			return "";
+		}
+	}
+	
+	
+	@GetMapping(value = "/signinemail/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkEmail(@PathVariable String email) {
+		log.info("checkEmail(String email) " +email);
+		Long countByEmail = this.signUpService.countByEmail(email);
+		log.error(""+countByEmail);
+		if(countByEmail==0) {
+			log.error("Not found similar email in db, try another..");
+			return "Email is not exist, try another..";
+		}else {
+			log.info("Found similar email in db");
 			return "";
 		}
 	}

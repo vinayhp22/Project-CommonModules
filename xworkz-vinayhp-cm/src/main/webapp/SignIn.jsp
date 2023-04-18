@@ -17,53 +17,115 @@
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 <title>X-workz || Sign In</title>
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+header img {
+	height: 50px;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+}
+
+nav li {
+	margin-left: 20px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+main {
+	height: 500px;
+	padding: 50px;
+	padding-top: 10px;
+}
+
+main a {
+	background-color: lime;
+	color: red;
+}
+
+nav a:hover {
+	color: #ffc107;
+}
+
+.active {
+	background-color: #4caf50;
+}
+
+footer {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+</style>
 </head>
 
 <body>
 	<header>
-		<nav style="background-color: black;" class="row">
-			<div class="container col">
-				<a href="index.jsp"> <img
-					src="https://tse4.mm.bing.net/th?id=OIP.sKD6cb_jUksj6usKnPC5awHaDt&pid=Api&P=0"
-					width="400" height="100" />
-				</a>
-			</div>
-			<div class="col p-3 my-3 bg-primary">
-				<a href="register" style="color: white; font-size: x-large;">
-					Register</a>
-			</div>
-			<div class="col p-3 my-3 bg-primary">
-				<a href="signIn" style="color: white; font-size: x-large;"> Sign
-					In</a>
-			</div>
+		<img alt="Xworkz Logo" src="download?fileName=xworkz_logo.png" />
+		<nav>
+			<ul>
+				<li><a href="index.jsp">Home</a></li>
+				<li><a href="register">Register</a></li>
+				<li class="active"><a href="signIn">SignIn</a></li>
+				<li><a href="AboutUs.jsp">About Us</a></li>
+				<li><a href="#">Services</a></li>
+				<li><a href="ContactUs.jsp">Contact Us</a></li>
+			</ul>
 		</nav>
 	</header>
-	<marquee style="background-color: red;">SignIn and enjoy
-		hassle free training</marquee>
-	<h1 style="color: green;" align="center">${success}</h1>
-	<h5 style="color: red;" align="center">${errors}</h5>
-	<div class="container mt-5">
-		<h1>Registration Form</h1>
-		<form action="signIn" method="post">
-			<div class="form-group">
-				<label for="userId">UserId</label> <input type="text"
-					class="form-control" id="userName" name="userId" value="${userId}"
-					onchange="userNameValidation()"> <a
-					id="userNameValidationMessage" style="color: red"></a><a
-					id="userNameFromDB" style="color: red;"></a>
-			</div>
-			<div class="form-group">
-				<label for="password">Password</label> <input type="password"
-					class="form-control" id="password" name="password"
-					onblur="passwordValidation()"> <a
-					id="passwordValidationMessage" style="color: red"></a> <input
-					type="checkbox" onclick="showPassword()"> Show Password
-			</div>
-			<button type="submit" class="btn btn-primary" id="signin"
-				disabled="disabled">SignIn</button>
-		</form>
-	</div>
-	<footer> Developed by: VinayHp </footer>
+	<main>
+		<marquee style="background-color: red;">SignIn and enjoy
+			hassle free training</marquee>
+		<h1 style="color: green;" align="center">${updatePasswordSuccess}</h1>
+		<h5 style="color: red;" align="center">${errors}</h5>
+		<div class="container mt-5">
+			<h1>Sign In</h1>
+			<form action="signIn" method="post">
+				<div class="form-group">
+					<label for="userId">UserId</label> <input type="text"
+						class="form-control" id="userName" name="userId" value="${userId}"
+						onchange="userNameValidation()"> <a
+						id="userNameValidationMessage" style="color: red"></a><a
+						id="userNameFromDB" style="color: red;"></a>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label> <input type="password"
+						class="form-control" id="password" name="password"
+						onblur="passwordValidation()"> <a
+						id="passwordValidationMessage" style="color: red"></a> <input
+						type="checkbox" onclick="showPassword()"> Show Password
+				</div>
+				<button type="submit" class="btn btn-primary" id="signin"
+					disabled="disabled">SignIn</button>
+			</form>
+			<a href="resetPassword">Forget Password</a>
+		</div>
+	</main>
+	<footer>
+		<p>&copy; 2023 Xworkz ODC. All rights reserved.</p>
+		<p>Developed by: VinayHp</p>
+	</footer>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -112,8 +174,8 @@
 				document.getElementById('userNameValidationMessage').innerHTML = '';
 
 				const xhr = new XMLHttpRequest();
-				xhr.open("POST",
-						"http://localhost:8082/xworkz-vinayhp-cm/userId/"
+				xhr.open("GET",
+						"http://localhost:8082/xworkz-vinayhp-cm/signinuserid/"
 								+ uservalue);
 				xhr.send();
 
@@ -128,11 +190,8 @@
 		}
 
 		function passwordValidation() {
-			var password = document.getElementById('password');
-			var confirmPassword = document
-					.getElementById('userConfirmPassword');
 			var passwordValue = password.value;
-			var confirmPasswordvalue = confirmPassword.value;
+
 			console.log(passwordValue);
 			if (passwordValue != null && passwordValue != ""
 					&& passwordValue.length > 4 && passwordValue.length < 12) {

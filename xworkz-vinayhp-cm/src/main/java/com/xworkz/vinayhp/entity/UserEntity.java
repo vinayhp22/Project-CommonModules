@@ -13,13 +13,15 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "signup_table")
+@Table(name = "users_signup")
 @NamedQuery(name = "countByUserId", query = "select Count(*) from UserEntity entity where entity.userId =:byUserId")
 @NamedQuery(name = "countByEmail", query = "select Count(*) from UserEntity entity where entity.email =:byEmail")
 @NamedQuery(name = "countByMobile", query = "select Count(*) from UserEntity entity where entity.mobile =:byMobile")
 @NamedQuery(name = "findByUserId", query = "select entity from UserEntity entity where entity.userId =:byUserId")
+@NamedQuery(name = "findByEmail", query = "select entity from UserEntity entity where entity.email =:byEmail")
 @NamedQuery(name = "updateAttempts", query = "update UserEntity entity set entity.attempts = :byAttempts where entity.userId =:byUserId")
 @NamedQuery(name = "updateLock", query = "update UserEntity entity set entity.locked = true where entity.userId =:byUserId")
+@NamedQuery(name = "updatePassword", query = "update UserEntity entity set entity.password = :byPassword where entity.userId =:byUserId")
 public class UserEntity {
 
 	@Id
@@ -42,9 +44,14 @@ public class UserEntity {
 	@Column(name = "agreement")
 	private boolean agreement;
 
+	@Column(name = "attempts")
 	private int attempts;
 
+	@Column(name = "locked")
 	private boolean locked;
+	
+	@Column(name = "reset_pwd")
+	private boolean reset_pwd;
 	
 	@Column(name = "createdBy")
 	private String createdBy;

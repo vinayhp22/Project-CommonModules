@@ -3,7 +3,6 @@ package com.xworkz.vinayhp.service;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -18,8 +17,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.xworkz.vinayhp.dto.UserDTO;
@@ -60,7 +57,9 @@ public class CMSignUpServiceImpl implements CMSignUpService {
 		BeanUtils.copyProperties(dto, entity);
 		// password encoding
 		String encodedPassword = passwordEncoder.encode(dto.getPassword());
+		passwordEncoder.upgradeEncoding(encodedPassword);
 		entity.setPassword(encodedPassword);
+		log.info(entity.getPassword());
 
 		boolean saved = this.repo.save(entity);
 		log.info("Entity" + entity + "; saved : " + saved);
@@ -124,5 +123,6 @@ public class CMSignUpServiceImpl implements CMSignUpService {
 		}
 		return false;
 	}
+
 
 }

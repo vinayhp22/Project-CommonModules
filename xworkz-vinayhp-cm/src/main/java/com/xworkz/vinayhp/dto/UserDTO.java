@@ -41,6 +41,8 @@ public class UserDTO extends AbstractAuditDTO{
 	private int attempts;
 	
 	private boolean locked;
+	
+	private boolean reset_pwd;
 
 
 }
