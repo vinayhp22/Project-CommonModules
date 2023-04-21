@@ -18,6 +18,7 @@ import lombok.Data;
 @NamedQuery(name = "countByEmail", query = "select Count(*) from UserEntity entity where entity.email =:byEmail")
 @NamedQuery(name = "countByMobile", query = "select Count(*) from UserEntity entity where entity.mobile =:byMobile")
 @NamedQuery(name = "findByUserId", query = "select entity from UserEntity entity where entity.userId =:byUserId")
+@NamedQuery(name = "findById", query = "select entity from UserEntity entity where entity.id =:byId")
 @NamedQuery(name = "findByEmail", query = "select entity from UserEntity entity where entity.email =:byEmail")
 @NamedQuery(name = "updateAttempts", query = "update UserEntity entity set entity.attempts = :byAttempts where entity.userId =:byUserId")
 @NamedQuery(name = "updateLock", query = "update UserEntity entity set entity.locked = true where entity.userId =:byUserId")
@@ -26,7 +27,7 @@ public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "signupId")
+	@Column(name = "id")
 	private int id;
 
 	@Column(name = "userId")
@@ -64,4 +65,7 @@ public class UserEntity {
 
 	@Column(name = "updatedOn")
 	private LocalDateTime updatedOn;
+	
+	@Column(name = "profile_pic_name")
+	private String profilePic;
 }

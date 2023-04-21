@@ -1,11 +1,14 @@
 package com.xworkz.vinayhp.repository;
 
-import com.xworkz.vinayhp.dto.UserDTO;
 import com.xworkz.vinayhp.entity.UserEntity;
 
 public interface CMSignInRepo {
 
 	UserEntity findByUserId(String userId);
+	
+	default UserEntity findById(int id) {
+		return null;
+	};
 	
 	default boolean updateAttempts(String userId, int attempts) {
 		return false;

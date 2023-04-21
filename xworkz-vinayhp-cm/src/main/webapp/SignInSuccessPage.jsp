@@ -16,6 +16,7 @@
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 <title>X-workz || Home</title>
+
 <style>
 body {
 	margin: 0;
@@ -51,12 +52,12 @@ nav a {
 	font-weight: bold;
 }
 
-
 nav img {
 	height: 30px;
 	width: 40px;
 	border-radius: 50px;
 }
+
 main {
 	height: 500px;
 	padding: 50px;
@@ -68,8 +69,8 @@ nav a:hover {
 	border-radius: 5px;
 }
 
-.active {
-	background-color: #4caf50;
+.userId {
+	background-color: red;
 }
 
 footer {
@@ -86,27 +87,41 @@ footer {
 		<img alt="Xworkz Logo" src="download?fileName=xworkz_logo.png" />
 		<nav>
 			<ul>
-				<li class="active"><a href="index.jsp">Home</a></li>
+				<li><a href="index.jsp">Home</a></li>
 				<li><a href="register">Register</a></li>
 				<li><a href="signIn">SignIn</a></li>
 				<li><a href="AboutUs.jsp">About Us</a></li>
 				<li><a href="#">Services</a></li>
 				<li><a href="ContactUs.jsp">Contact Us</a></li>
-				<li><a>Welcome, Guest</a></li>
-				<li><img id="profilePic" src=""/></li>
-				<!-- <span>Welcome, <span id="userId"></span></span> --> 
+				<li><a class="userId">Welcome, ${dto.userId}</a></li>
+				<li><img id="profilePic" src="" /></li>
+				<!-- <span>Welcome, <span id="userId"></span></span> -->
 			</ul>
 		</nav>
 	</header>
 
 	<main>
-		<h1 style="color: green;" align="center">${sign_in_success}${signUpSuccess}</h1>
+		<h1 style="color: green;" align="center">${sign_in_success}${updateSuccess}${addTechSuccess}</h1>
 		<h3 style="color: orange;" align="center">${signUpEmailConfirmation}</h3>
 		<h1>Xworkz ODC</h1>
 		<p>Welcome to Xworkz ODC, your trusted partner for all your
 			software development needs. Our team of experienced developers is
 			dedicated to delivering high-quality, scalable solutions that meet
 			your unique business requirements.</p>
+		<p>
+			To update profile : <a href="updateProfile?userId=">Update
+				Profile</a>
+		</p>
+
+		<p>
+			To add Technology : <a href="addtechnology?id=${dto.id}"> Add
+				Technology</a>
+		</p>
+
+		<form action="listtechnology?id=${dto.id}" method="post">
+			List Technology(s) : <input type="submit" value="List Technologies" />
+		</form>
+
 	</main>
 
 	<footer>
@@ -129,9 +144,20 @@ footer {
 		crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
-		var profilePicUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+		var picture = "${dto.profilePic}";
+		localStorage.setItem("pic", picture);
 
-		document.getElementById("profilePic").src = profilePicUrl;
+		var pic = localStorage.getItem("pic");
+		console.log("localStorage : " + pic);
+		if (pic == null) {
+			var profilePicUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+			document.getElementById("profilePic").src = profilePicUrl;
+		}
+
+		var ppic = document.getElementById("profilePic");
+		console.log(ppic.src);
+		ppic.src = "downloadPic?profilePic=" + pic;
+		console.log(ppic.src);
 	</script>
 
 </body>

@@ -2,7 +2,6 @@ package com.xworkz.vinayhp.configuration;
 
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
-import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

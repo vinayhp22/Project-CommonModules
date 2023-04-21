@@ -42,6 +42,26 @@ public class CMSignInRepoImpl implements CMSignInRepo {
 	}
 
 	@Override
+	public UserEntity findById(int id) {
+		log.info("findById(int id) " + id);
+		EntityManager entityManager = this.entityManagerFactory.createEntityManager();
+		try {
+			Query query = entityManager.createNamedQuery("findById");
+			query.setParameter("byId", id);
+			UserEntity result = (UserEntity) query.getSingleResult();
+			log.info("" + result);
+			return result;
+		} catch (NoResultException e) {
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} finally {
+			entityManager.close();
+		}
+		return CMSignInRepo.super.findById(id);
+	}
+	
+	@Override
 	public boolean updateAttempts(String userId, int attempts) {
 		log.info("updateAttempts(int attempts) " + attempts);
 		EntityManager entityManager = this.entityManagerFactory.createEntityManager();

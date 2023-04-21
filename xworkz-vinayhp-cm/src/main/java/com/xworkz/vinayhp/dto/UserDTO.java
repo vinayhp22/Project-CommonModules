@@ -35,7 +35,7 @@ public class UserDTO extends AbstractAuditDTO{
 	@Size(min = 6, max = 10, message = "password can't be less than 6 or more than 10 characters")
 	private String password;
 	
-	@NotNull
+	@NotNull(message = "agreement can't be null")
 	private boolean agreement;
 	
 	private int attempts;
@@ -44,5 +44,6 @@ public class UserDTO extends AbstractAuditDTO{
 	
 	private boolean reset_pwd;
 
+	private String profilePic;
 
 }

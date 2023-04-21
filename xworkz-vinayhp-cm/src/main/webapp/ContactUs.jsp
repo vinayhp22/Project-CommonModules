@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Contact Us</title>
-<link rel="stylesheet" href="./resources/static/css/Header&Footer.css">
 <style>
 body {
 	font-family: Arial, sans-serif;
@@ -58,6 +57,62 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
 	background-color: #0062cc;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+header img {
+	height: 50px;
+}
+
+nav ul {
+	list-style: none;
+	display: flex;
+}
+
+nav li {
+	margin-left: 20px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+main {
+	height: 500px;
+	padding: 50px;
+}
+
+nav a:hover {
+	color: #ffc107;
+	background-color: #555;
+	border-radius: 5px;
+}
+
+.active {
+	background-color: #4caf50;
+}
+
+footer {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
 }
 </style>
 </head>

@@ -39,12 +39,12 @@ public class CMSignInController {
 		if (user != null && user.getAttempts() < 3 && !user.isLocked()) {
 			if (service.authenticateUser(userId, password)) {
 				// correct credentials
-				model.addAttribute("userId", userId);
+				model.addAttribute("dto", user);
 				model.addAttribute("sign_in_success", "Successfully logged in, email is : " + user.getEmail());
 				if (user.getAttempts() != 0) {
 					service.updateAttempts(userId, 0);
 				}
-				return "index";
+				return "SignInSuccessPage";
 			} else {
 				// wrong password
 				int attempts = user.getAttempts() + 1;

@@ -10,6 +10,10 @@ public interface CMSignInService {
 		return null;
 	};
 	
+	default UserDTO findById(int id) {
+		return null;
+	};
+	
 	default void updateAttempts(String userId, int attempts) {};
 
 	default void updateLock(String userId) {};

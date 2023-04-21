@@ -63,6 +63,18 @@ public class CMSignInServiceImpl implements CMSignInService {
 		}
 		return CMSignInService.super.findByUserId(userId);
 	}
+	
+	@Override
+	public UserDTO findById(int id) {
+		log.info("findById "+id);
+		UserEntity entity = repo.findById(id);
+		if (entity != null) {
+			UserDTO dto = new UserDTO();
+			BeanUtils.copyProperties(entity, dto);
+			return dto;
+		}
+		return CMSignInService.super.findById(id);
+	}
 
 	@Override
 	public void updateAttempts(String userId, int attempts) {

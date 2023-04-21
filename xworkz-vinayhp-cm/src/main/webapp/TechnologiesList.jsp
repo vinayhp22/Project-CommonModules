@@ -16,6 +16,7 @@
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 <title>X-workz || Home</title>
+
 <style>
 body {
 	margin: 0;
@@ -51,14 +52,13 @@ nav a {
 	font-weight: bold;
 }
 
-
 nav img {
 	height: 30px;
 	width: 40px;
 	border-radius: 50px;
 }
+
 main {
-	height: 500px;
 	padding: 50px;
 }
 
@@ -68,8 +68,8 @@ nav a:hover {
 	border-radius: 5px;
 }
 
-.active {
-	background-color: #4caf50;
+.userId {
+	background-color: red;
 }
 
 footer {
@@ -86,27 +86,56 @@ footer {
 		<img alt="Xworkz Logo" src="download?fileName=xworkz_logo.png" />
 		<nav>
 			<ul>
-				<li class="active"><a href="index.jsp">Home</a></li>
+				<li><a href="index.jsp">Home</a></li>
 				<li><a href="register">Register</a></li>
 				<li><a href="signIn">SignIn</a></li>
 				<li><a href="AboutUs.jsp">About Us</a></li>
 				<li><a href="#">Services</a></li>
 				<li><a href="ContactUs.jsp">Contact Us</a></li>
-				<li><a>Welcome, Guest</a></li>
-				<li><img id="profilePic" src=""/></li>
-				<!-- <span>Welcome, <span id="userId"></span></span> --> 
+				<li><a class="userId">Welcome, ${dto.userId}</a></li>
+				<li><img id="profilePic" src="" /></li>
+				<!-- <span>Welcome, <span id="userId"></span></span> -->
 			</ul>
 		</nav>
 	</header>
 
 	<main>
-		<h1 style="color: green;" align="center">${sign_in_success}${signUpSuccess}</h1>
-		<h3 style="color: orange;" align="center">${signUpEmailConfirmation}</h3>
-		<h1>Xworkz ODC</h1>
-		<p>Welcome to Xworkz ODC, your trusted partner for all your
-			software development needs. Our team of experienced developers is
-			dedicated to delivering high-quality, scalable solutions that meet
-			your unique business requirements.</p>
+		<h1 style="color: navy;" align="center">Technology(s) List</h1>
+		<h2>Name: <a style="color: gray;"> ${dto.userId}</a></h2>
+		<h2>Email: <a style="color: gray;"> ${dto.email}</a></h2>
+		<h2>Total no. of technologies : <a style="color: gray;"> ${dtos.size()}</a></h2>
+		<div class="container">
+			<table style="width: 100%;" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Language</th>
+						<th>Version</th>
+						<th>Owner</th>
+						<th>Support From</th>
+						<th>Support To</th>
+						<th>License</th>
+						<th>OS Type</th>
+						<th>Open Source</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${dtos}" var="d">
+						<tr>
+							<td>${d.name}</td>
+							<td>${d.language}</td>
+							<td>${d.version}</td>
+							<td>${d.owner}</td>
+							<td>${d.supportFrom}</td>
+							<td>${d.supportTo}</td>
+							<td>${d.license}</td>
+							<td>${d.OSType}</td>
+							<td>${d.openSource}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</main>
 
 	<footer>
@@ -129,9 +158,17 @@ footer {
 		crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
-		var profilePicUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+		var pic = localStorage.getItem("pic");
+		console.log("localStorage : " + pic);
+		if (pic == null) {
+			var profilePicUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+			document.getElementById("profilePic").src = profilePicUrl;
+		}
 
-		document.getElementById("profilePic").src = profilePicUrl;
+		var ppic = document.getElementById("profilePic")
+		console.log(ppic.src)
+		ppic.src = "downloadPic?profilePic=" + pic
+		console.log(ppic.src)
 	</script>
 
 </body>
