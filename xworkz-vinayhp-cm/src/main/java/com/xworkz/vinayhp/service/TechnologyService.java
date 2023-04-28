@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
-import com.xworkz.vinayhp.dto.TechnolgyListDTO;
+import com.xworkz.vinayhp.dto.TechnologyListDTO;
 
 public interface TechnologyService {
 
-	Set<ConstraintViolation<TechnolgyListDTO>> validateAndAdd(TechnolgyListDTO dto);
+	Set<ConstraintViolation<TechnologyListDTO>> validateAndAdd(TechnologyListDTO dto);
 
-	default List<TechnolgyListDTO> findById(int id){
+	default List<TechnologyListDTO> listById(int id){
 		return Collections.emptyList();
 	}
 }

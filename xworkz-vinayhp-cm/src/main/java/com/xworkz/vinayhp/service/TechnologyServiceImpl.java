@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.xworkz.vinayhp.dto.TechnolgyListDTO;
+import com.xworkz.vinayhp.dto.TechnologyListDTO;
 import com.xworkz.vinayhp.entity.TechnolgyListEntity;
 import com.xworkz.vinayhp.repository.TechnologyRepo;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -28,12 +24,12 @@ public class TechnologyServiceImpl implements TechnologyService {
 	private TechnologyRepo repo;
 
 	@Override
-	public Set<ConstraintViolation<TechnolgyListDTO>> validateAndAdd(TechnolgyListDTO dto) {
+	public Set<ConstraintViolation<TechnologyListDTO>> validateAndAdd(TechnologyListDTO dto) {
 		log.info("validateAndAdd in TechnologyServiceImpl");
 
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
-		Set<ConstraintViolation<TechnolgyListDTO>> violations = validator.validate(dto);
+		Set<ConstraintViolation<TechnologyListDTO>> violations = validator.validate(dto);
 		if (violations != null && !violations.isEmpty()) {
 			log.info("Violations in dto" + dto);
 			return violations;
@@ -48,20 +44,20 @@ public class TechnologyServiceImpl implements TechnologyService {
 	}
 
 	@Override
-	public List<TechnolgyListDTO> findById(int id) {
+	public List<TechnologyListDTO> listById(int id) {
 		log.info("findById " + id);
 		List<TechnolgyListEntity> entities = this.repo.listById(id);
 		log.info("entities.size() : " + entities.size());
-		List<TechnolgyListDTO> dtos = new ArrayList<>();
+		List<TechnologyListDTO> dtos = new ArrayList<>();
 		if (!entities.isEmpty()) {
 			for (TechnolgyListEntity entity : entities) {
-				TechnolgyListDTO dto = new TechnolgyListDTO();
+				TechnologyListDTO dto = new TechnologyListDTO();
 				BeanUtils.copyProperties(entity, dto);
 				dtos.add(dto);
 			}
 			log.info("dtos.size() : " + dtos.size());
 			return dtos;
 		}
-		return TechnologyService.super.findById(id);
+		return TechnologyService.super.listById(id);
 	}
 }

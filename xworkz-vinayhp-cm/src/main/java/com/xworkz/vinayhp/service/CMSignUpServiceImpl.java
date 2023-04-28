@@ -45,7 +45,7 @@ public class CMSignUpServiceImpl implements CMSignUpService {
 		Long countByUserId = this.repo.countByUserId(dto.getUserId());
 		Long countByEmail = this.repo.countByEmail(dto.getEmail());
 		Long countByMobile = this.repo.countByMobile(dto.getMobile());
-		if (countByUserId != 0 && countByEmail != 0 && countByMobile != 0) {
+		if (countByUserId != 0 || countByEmail != 0 || countByMobile != 0) {
 			if (violations != null && !violations.isEmpty()) {
 				log.info("Violations in dto" + dto);
 				return violations;
@@ -70,6 +70,7 @@ public class CMSignUpServiceImpl implements CMSignUpService {
 	public Long countByUserId(String userId) {
 		log.info("countByUserId(String userId) " + userId);
 		Long countByUserId = this.repo.countByUserId(userId);
+		log.info("countByUserId : "+countByUserId);
 		return countByUserId;
 	}
 
@@ -77,6 +78,7 @@ public class CMSignUpServiceImpl implements CMSignUpService {
 	public Long countByEmail(String email) {
 		log.info("countByEmail(String email) " + email);
 		Long countByEmail = this.repo.countByEmail(email);
+		log.info("countByEmail : "+countByEmail);
 		return countByEmail;
 	}
 
@@ -84,6 +86,7 @@ public class CMSignUpServiceImpl implements CMSignUpService {
 	public Long countByMobile(Long mobile) {
 		log.info("countByMobile(Long mobile) " + mobile);
 		Long countByMobile = this.repo.countByMobile(mobile);
+		log.info("countByMobile : "+countByMobile);
 		return countByMobile;
 	}
 

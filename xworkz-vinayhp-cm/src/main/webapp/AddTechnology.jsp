@@ -71,6 +71,10 @@ nav a:hover {
 	background-color: #4caf50;
 }
 
+.userId {
+	background-color: red;
+}
+
 footer {
 	background-color: #333;
 	color: #fff;
@@ -86,12 +90,12 @@ footer {
 		<nav>
 			<ul>
 				<li><a href="index.jsp">Home</a></li>
-				<li><a href="register">Register</a></li>
-				<li><a href="signIn">SignIn</a></li>
+				<li><a href="listtechnology?id=${dto.id}">List Technologies</a></li>
+				<li><a href="updateProfile?userId=${dto.userId}">Update Profile</a></li>
 				<li><a href="AboutUs.jsp">About Us</a></li>
 				<li><a href="#">Services</a></li>
 				<li><a href="ContactUs.jsp">Contact Us</a></li>
-				<li><a>Welcome, Guest</a></li>
+				<li><a class="userId">Welcome, ${getUserId}</a></li>
 				<li><img id="profilePic" src="" /></li>
 			</ul>
 		</nav>
@@ -107,47 +111,48 @@ footer {
 			<form action="addtechnology?id=${id}" method="post">
 				<div class="form-group">
 					<label for="name">Name</label> <input type="text"
-						class="form-control" name="name" id="name" value="${dto.name}">
+						class="form-control" name="name" id="name" value="${tlDto.name}">
 				</div>
 				<div class="form-group">
 					<label for="language">Language</label> <input type="text"
 						class="form-control" id="language" name="language"
-						value="${dto.language}">
+						value="${tlDto.language}">
 				</div>
 				<div class="form-group">
 					<label for="version">Version</label> <input type="number"
 						class="form-control" id="version" name="version"
-						value="${dto.version}" onchange="setTwoNumberDecimal()" min="0"
+						value="${tlDto.version}" onchange="setTwoNumberDecimal()" min="0"
 						max="1000" step="0.01" value="0.00">
 				</div>
 				<div class="form-group">
 					<label for="owner">Owner</label> <input type="text"
-						class="form-control" id="owner" name="owner" value="${dto.owner}">
+						class="form-control" id="owner" name="owner"
+						value="${tlDto.owner}">
 				</div>
 				<div class="form-group">
 					<label for="supportFrom">Support From</label> <input type="text"
 						class="form-control" id="supportFrom" name="supportFrom"
-						value="${dto.supportFrom}">
+						value="${tlDto.supportFrom}">
 				</div>
 				<div class="form-group">
 					<label for="supportTo">Support To</label> <input type="text"
 						class="form-control" id="supportTo" name="supportTo"
-						value="${dto.supportTo}">
+						value="${tlDto.supportTo}" />
 				</div>
 				<div class="form-group">
 					<label for="license">License</label> <input type="text"
 						class="form-control" id="license" name="license"
-						value="${dto.license}">
+						value="${tlDto.license}" />
 				</div>
 				<div class="form-group">
 					<label for="OSType">OSType</label> <input type="text"
 						class="form-control" id="OSType" name="OSType"
-						value="${dto.OSType}">
+						value="${tlDto.OSType}" />
 				</div>
 				<div class="form-group">
-					<label for=openSource>Open Source: (if yes, click on check
-						box)</label> <input type="checkbox" id="openSource" name="openSource"
-						value="${dto.openSource}">
+					<label for="openSource">Open Source: (if yes, click on
+						check box)</label> <input type="checkbox" id="openSource"
+						name="openSource"/>
 				</div>
 				<button type="submit" class="btn btn-primary" id="submit"
 					disabled="disabled">ADD</button>

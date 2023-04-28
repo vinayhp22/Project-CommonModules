@@ -1,5 +1,8 @@
 package com.xworkz.vinayhp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +33,7 @@ public class CMSignInController {
 	}
 
 	@PostMapping("/signIn")
-	public String onSignIn(String userId, String password, Model model) {
+	public String onSignIn(String userId, String password, Model model, HttpServletRequest request) {
 		log.info("onSignIn() postMapping");
 		UserDTO user = service.findByUserId(userId);
 		if (user != null) {
@@ -39,6 +42,10 @@ public class CMSignInController {
 		if (user != null && user.getAttempts() < 3 && !user.isLocked()) {
 			if (service.authenticateUser(userId, password)) {
 				// correct credentials
+				HttpSession session = request.getSession();
+
+				session.setAttribute("dto", user);
+
 				model.addAttribute("dto", user);
 				model.addAttribute("sign_in_success", "Successfully logged in, email is : " + user.getEmail());
 				if (user.getAttempts() != 0) {

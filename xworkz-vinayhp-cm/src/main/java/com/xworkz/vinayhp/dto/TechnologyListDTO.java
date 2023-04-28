@@ -1,13 +1,12 @@
 package com.xworkz.vinayhp.dto;
 
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class TechnolgyListDTO {
+public class TechnologyListDTO {
 
 	private Long stockId;
 	
@@ -38,6 +37,7 @@ public class TechnolgyListDTO {
 	@NotNull(message = "OS Type can't be null")
 	private String OSType;
 	
+	@NotNull(message = "openSource can't be null")
 	private Boolean openSource;
 
 }

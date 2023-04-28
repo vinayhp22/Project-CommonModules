@@ -88,8 +88,9 @@ footer {
 		<nav>
 			<ul>
 				<li><a href="index.jsp">Home</a></li>
-				<li><a href="register">Register</a></li>
-				<li><a href="signIn">SignIn</a></li>
+				<li><a href="addtechnology?id=${dto.id}">Add Technology</a></li>
+				<li><a href="listtechnology?id=${dto.id}">List Technologies</a></li>
+				<li><a href="updateProfile?userId=${dto.userId}">Update Profile</a></li>
 				<li><a href="AboutUs.jsp">About Us</a></li>
 				<li><a href="#">Services</a></li>
 				<li><a href="ContactUs.jsp">Contact Us</a></li>
@@ -108,20 +109,7 @@ footer {
 			software development needs. Our team of experienced developers is
 			dedicated to delivering high-quality, scalable solutions that meet
 			your unique business requirements.</p>
-		<p>
-			To update profile : <a href="updateProfile?userId=">Update
-				Profile</a>
-		</p>
-
-		<p>
-			To add Technology : <a href="addtechnology?id=${dto.id}"> Add
-				Technology</a>
-		</p>
-
-		<form action="listtechnology?id=${dto.id}" method="post">
-			List Technology(s) : <input type="submit" value="List Technologies" />
-		</form>
-
+		
 	</main>
 
 	<footer>

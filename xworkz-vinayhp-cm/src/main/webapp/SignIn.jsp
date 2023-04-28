@@ -16,6 +16,12 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 <title>X-workz || Sign In</title>
 <style>
 body {
@@ -105,14 +111,16 @@ footer {
 				<div class="form-group">
 					<label for="userId">UserId</label> <input type="text"
 						class="form-control" id="userName" name="userId" value="${userId}"
-						onchange="userNameValidation()"> <a
+						onchange="userNameValidation()" placeholder="&#xf007; User ID"
+						style="font-family: Arial, FontAwesome"><a
 						id="userNameValidationMessage" style="color: red"></a><a
 						id="userNameFromDB" style="color: red;"></a>
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label> <input type="password"
 						class="form-control" id="password" name="password"
-						onblur="passwordValidation()"> <a
+						onblur="passwordValidation()" placeholder="&#xf023; Password"
+						style="font-family: Arial, FontAwesome"> <a
 						id="passwordValidationMessage" style="color: red"></a> <input
 						type="checkbox" onclick="showPassword()"> Show Password
 				</div>

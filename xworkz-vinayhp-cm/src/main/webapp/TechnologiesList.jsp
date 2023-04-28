@@ -1,3 +1,6 @@
+<%@page import="com.xworkz.vinayhp.dto.TechnologyListDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -87,8 +90,9 @@ footer {
 		<nav>
 			<ul>
 				<li><a href="index.jsp">Home</a></li>
-				<li><a href="register">Register</a></li>
-				<li><a href="signIn">SignIn</a></li>
+				<li><a href="addtechnology?id=${dto.id}">Add Technology</a></li>
+				<li><a href="updateProfile?userId=${dto.userId}">Update
+						Profile</a></li>
 				<li><a href="AboutUs.jsp">About Us</a></li>
 				<li><a href="#">Services</a></li>
 				<li><a href="ContactUs.jsp">Contact Us</a></li>
@@ -101,22 +105,32 @@ footer {
 
 	<main>
 		<h1 style="color: navy;" align="center">Technology(s) List</h1>
-		<h2>Name: <a style="color: gray;"> ${dto.userId}</a></h2>
-		<h2>Email: <a style="color: gray;"> ${dto.email}</a></h2>
-		<h2>Total no. of technologies : <a style="color: gray;"> ${dtos.size()}</a></h2>
-		<div class="container">
+		<h2>
+			Name: <a style="color: gray;"> ${dto.userId}</a>
+		</h2>
+		<h2>
+			Email: <a style="color: gray;"> ${dto.email}</a>
+		</h2>
+		<h2>
+			Total no. of technologies : <a style="color: gray;">
+				${dtos.size()}</a>
+		</h2>
+		<input type="text" id="search-input" onkeyup="filterTable()"
+			placeholder="Search...">
+
+		<div class="container" id="sortByName">
 			<table style="width: 100%;" class="table table-striped">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Language</th>
-						<th>Version</th>
-						<th>Owner</th>
-						<th>Support From</th>
-						<th>Support To</th>
-						<th>License</th>
-						<th>OS Type</th>
-						<th>Open Source</th>
+						<th onclick="sortByName()">Name</th>
+						<th onclick="sortByLanguage()">Language</th>
+						<th onclick="sortByVersion()">Version</th>
+						<th onclick="sortByOwner()">Owner</th>
+						<th onclick="sortBySupportFrom()">Support From</th>
+						<th onclick="sortBySupportTo()">Support To</th>
+						<th onclick="sortByLicense()">License</th>
+						<th onclick="sortByOSType()">OS Type</th>
+						<th onclick="sortByOpenSource()">Open Source</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -136,7 +150,11 @@ footer {
 				</tbody>
 			</table>
 		</div>
+		<input type="text" id="searchInput" placeholder="Search...">
+		<button onclick="search()">Search</button>
+		<button onclick="restoreOrder()">Restore order</button>
 	</main>
+
 
 	<footer>
 		<p>&copy; 2023 Xworkz ODC. All rights reserved.</p>
@@ -168,8 +186,170 @@ footer {
 		var ppic = document.getElementById("profilePic")
 		console.log(ppic.src)
 		ppic.src = "downloadPic?profilePic=" + pic
-		console.log(ppic.src)
+		console.log(ppic.src);
+
+		function filterTable() {
+			var value = $('#search-input').val().toLowerCase();
+			$('table tbody tr').filter(
+					function() {
+						$(this).toggle(
+							$(this).text().toLowerCase().indexOf(value) > -1)
+					});
+		}
+
+		function search() {
+			var searchValue = $('#searchInput').val().trim().toUpperCase();
+			$('table tbody tr').each(function() {
+				var rowValue = $(this).text().toUpperCase();
+				if (rowValue.indexOf(searchValue) >= 0) {
+					$(this).css('background-color', 'green');
+				} else {
+					$(this).css('background-color', '');
+				}
+			});
+		}
+
+		// Define a variable to store the original order of the rows
+		var originalRows = $('table tbody tr').get();
+
+		// Get the table rows and convert them to an array
+		var rows = $('table tbody tr').get();
+
+		function sortByName() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var nameA = $(a).find('td:first').text().toUpperCase();
+				var nameB = $(b).find('td:first').text().toUpperCase();
+				return nameA.localeCompare(nameB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function sortByLanguage() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var languageA = $(a).find('td:eq(1)').text().toUpperCase();
+				var languageB = $(b).find('td:eq(1)').text().toUpperCase();
+				return languageA.localeCompare(languageB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function sortByVersion() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var versionA = $(a).find('td:eq(2)').text().toUpperCase();
+				var versionB = $(b).find('td:eq(2)').text().toUpperCase();
+				return versionA.localeCompare(versionB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function sortByOwner() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var ownerA = $(a).find('td:eq(3)').text().toUpperCase();
+				var ownerB = $(b).find('td:eq(3)').text().toUpperCase();
+				return ownerA.localeCompare(ownerB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function sortBySupportFrom() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var supportFromA = $(a).find('td:eq(4)').text().toUpperCase();
+				var supportFromB = $(b).find('td:eq(4)').text().toUpperCase();
+				return supportFromA.localeCompare(supportFromB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function sortBySupportTo() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var supportToA = $(a).find('td:eq(5)').text().toUpperCase();
+				var supportToB = $(b).find('td:eq(5)').text().toUpperCase();
+				return supportToA.localeCompare(supportToB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function sortByLicense() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var licenseA = $(a).find('td:eq(6)').text().toUpperCase();
+				var licenseB = $(b).find('td:eq(6)').text().toUpperCase();
+				return licenseA.localeCompare(licenseB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function sortByOSType() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var OSTypeA = $(a).find('td:eq(7)').text().toUpperCase();
+				var OSTypeB = $(b).find('td:eq(7)').text().toUpperCase();
+				return OSTypeA.localeCompare(OSTypeB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function sortByOpenSource() {
+			// Sort the rows based on the text content of the first column
+			rows.sort(function(a, b) {
+				var openSourceA = $(a).find('td:eq(8)').text().toUpperCase();
+				var openSourceB = $(b).find('td:eq(8)').text().toUpperCase();
+				return openSourceA.localeCompare(openSourceB);
+			});
+
+			// Reorder the rows in the table
+			$.each(rows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
+
+		function restoreOrder() {
+			// Reorder the rows in the table to the original order
+			$.each(originalRows, function(index, row) {
+				$('table tbody').append(row);
+			});
+		}
 	</script>
+
+
 
 </body>
 </html>

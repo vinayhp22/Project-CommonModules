@@ -10,7 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,12 +97,14 @@ public class CMUpdateProfileController {
 
 	@GetMapping("/downloadPic")
 	public void onDownloadProfilePic(HttpServletResponse response, @RequestParam String profilePic, UserDTO dto,
-			Model model) throws IOException {
+			Model model, HttpServletRequest request) throws IOException {
 		log.info("onDownloadProfilePic");
 		try {
 			Path path = Paths.get(UPLOADED_FOLDER + dto.getProfilePic());
 			path.toFile();
 			log.info("dto.getProfilePic() : " + dto.getProfilePic() + "profilePic : " + profilePic);
+			HttpSession session = request.getSession();
+			session.setAttribute("pic", dto.getProfilePic());
 			model.addAttribute("pic", dto.getProfilePic());
 			response.setContentType("image/jpeg");
 			File file = new File("G:\\xworkz-vinayhp-project\\FileUpload\\ProfilePictures\\" + profilePic);

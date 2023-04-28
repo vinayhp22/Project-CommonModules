@@ -106,34 +106,34 @@ footer {
 				<br>${e.message}</c:forEach>
 		</h5>
 		<div class="container mt-5">
-			<h1>Registration Form</h1>
+			<h1>Trainee Registration Form</h1>
 			<form action="register" method="post">
 				<div class="form-group">
 					<label for="userId">UserId</label> <input type="text"
 						class="form-control" id="userName" name="userId"
-						value="${dto.userId}" onblur="userNameValidation()"> <a
-						id="userNameValidationMessage" style="color: red"></a> <a
+						value="${registerdto.userId}" onblur="userNameValidation()">
+					<a id="userNameValidationMessage" style="color: red"></a> <a
 						id="userNameFromDB" style="color: red;"></a>
 				</div>
 				<div class="form-group">
 					<label for="email">Email address</label> <input type="email"
 						class="form-control" id="emailId" name="email"
-						value="${dto.email}" onblur="emailValidation()"> <a
+						value="${registerdto.email}" onblur="emailValidation()"> <a
 						id="emailValidationMessage" style="color: red"></a> </a> <a
 						id="userEmailFromDB" style="color: red;"></a>
 				</div>
 				<div class="form-group">
 					<label for="mobile">Mobile</label> <input type="number"
 						class="form-control" id="mobileNo" name="mobile"
-						value="${dto.mobile}" onblur="mobileValidation()"> <a
-						id="mobileValidationMessage" style="color: red"></a> <a
+						value="${registerdto.mobile}" onblur="mobileValidation()">
+					<a id="mobileValidationMessage" style="color: red"></a> <a
 						id="mobileFromDB" style="color: red"></a>
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label> <input type="password"
 						class="form-control" id="password" name="password"
-						value="${dto.password}" onblur="passwordValidation()"> <a
-						id="passwordValidationMessage" style="color: red"></a> <input
+						value="${registerdto.password}" onblur="passwordValidation()">
+					<a id="passwordValidationMessage" style="color: red"></a> <input
 						type="checkbox" onclick="showPassword()"> Show Password
 				</div>
 				<div class="form-group">
@@ -289,7 +289,6 @@ footer {
 					console.log(this);
 					document.getElementById("mobileFromDB").innerHTML = this.responseText;
 				}
-
 			} else {
 				console.log('mobile is invalid');
 				document.getElementById('mobileValidationMessage').innerHTML = 'Plese enter valid Mobile Number';
@@ -309,7 +308,15 @@ footer {
 				document.getElementById('passwordValidationMessage').innerHTML = '';
 			} else {
 				console.log('password is invalid');
-				document.getElementById('passwordValidationMessage').innerHTML = 'Plese enter valid password';
+				if (passwordValue == "") {
+					document.getElementById('passwordValidationMessage').innerHTML = 'Plese enter the password';
+				}else if(passwordValue.length < 4){
+					document.getElementById('passwordValidationMessage').innerHTML = 'Password should be greater than 4 characters';
+				}else if(passwordValue.length > 12){
+					document.getElementById('passwordValidationMessage').innerHTML = 'Password should be less than 12 characters';
+				}else{
+					document.getElementById('passwordValidationMessage').innerHTML = 'Plese enter the password';					
+				}
 			}
 		}
 
