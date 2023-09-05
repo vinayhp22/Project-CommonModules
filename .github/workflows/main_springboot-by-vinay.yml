@@ -51,3 +51,25 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8D85BA3FDF674943AE11F294E9A528DC }}
           package: '*.war'
+    
+    name: CI/CD Workflow
+    
+      on:
+        push:
+          branches:
+            - main
+
+        jobs:
+          build:
+            runs-on: ubuntu-latest
+            
+            steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v2
+        
+            - name: Change Directory and Run Maven
+              run: |
+                cd D:\a\Project-CommonModules\Project-CommonModules
+                mvn your-maven-goal
+
+          
