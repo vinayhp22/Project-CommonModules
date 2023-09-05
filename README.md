@@ -2,7 +2,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy JAR app to Azure Web App - Spring-boot-demo-by-vinay
+name: Build and deploy WAR app to Azure Web App - SpringBoot-by-vinay
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}/target/*.war'
 
   deploy:
     runs-on: windows-latest
@@ -48,7 +48,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'Spring-boot-demo-by-vinay'
+          app-name: 'SpringBoot-by-vinay'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_ebddfd0ef26740cfb52828f5aa871d25 }}
-          package: '*.jar'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_55ccc6d690384f21966c4152b834b26a }}
+          package: '*.war'
