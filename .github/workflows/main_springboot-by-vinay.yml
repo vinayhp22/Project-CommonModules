@@ -69,7 +69,7 @@ jobs:
         
             - name: Change Directory and Run Maven
               run: |
-                cd D:\a\Project-CommonModules\Project-CommonModules
+                cd D:\a\Project-CommonModules\xworkz-vinayhp-cm
                 mvn your-maven-goal
 
           
